@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>OTT Platform Analytics — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg:       #080810;
+    --surface:  #0F0F1A;
+    --surface2: #161625;
+    --surface3: #1E1E30;
+    --border:   #252538;
+    --text:     #E2E2F0;
+    --muted:    #7070A0;
+    --red:      #E50914;
+    --red-dim:  #E5091420;
+    --blue:     #00A8E1;
+    --blue-dim: #00A8E120;
+    --purple:   #A855F7;
+    --purple-dim:#A855F720;
+    --green:    #1DB954;
+    --gold:     #F5A623;
+    --gold-dim: #F5A62318;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    padding: 90px 48px 72px;
+    max-width: 1120px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: -100px;
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, #E5091412 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 0; right: -100px;
+    width: 500px; height: 400px;
+    background: radial-gradient(ellipse, #00A8E110 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before {
+    content: '▶';
+    font-size: 8px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 28px;
+  }
+
+  h1 .line2 { color: var(--red); }
+  h1 .line3 { color: var(--blue); font-size: 0.55em; letter-spacing: 0.12em; }
+
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.9;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    background: var(--surface);
+  }
+  .tag.red    { border-color: var(--red);    color: var(--red);    background: var(--red-dim); }
+  .tag.blue   { border-color: var(--blue);   color: var(--blue);   background: var(--blue-dim); }
+  .tag.purple { border-color: var(--purple); color: var(--purple); background: var(--purple-dim); }
+  .tag.gold   { border-color: var(--gold);   color: var(--gold);   background: var(--gold-dim); }
+
+  /* ── PLATFORM STRIP ── */
+  .platform-strip {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 48px 64px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .platform-card {
+    background: var(--surface);
+    padding: 26px 20px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .platform-card:hover { background: var(--surface2); }
+
+  .platform-card .p-icon { font-size: 24px; margin-bottom: 8px; }
+  .platform-card .p-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .platform-card .p-rows {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.05em;
+  }
+  .p-rows.netflix  { color: var(--red); }
+  .p-rows.amazon   { color: #00A8E1; }
+  .p-rows.hotstar  { color: #0B4FD8; }
+  .p-rows.apple    { color: #A2AAAD; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    max-width: 1120px;
+    margin: 0 auto 0;
+    padding: 0 48px 64px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+  }
+
+  .stat-box .s-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+    display: block;
+  }
+
+  .stat-box .s-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 60px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .sec-label.blue   { color: var(--blue); }
+  .sec-label.purple { color: var(--purple); }
+  .sec-label.gold   { color: var(--gold); }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    color: var(--text);
+  }
+
+  p { color: var(--muted); margin-bottom: 16px; font-weight: 300; }
+  p strong { color: var(--text); font-weight: 500; }
+
+  /* ── OVERVIEW CARDS ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .ov-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 22px;
+  }
+  .ov-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .ov-card p { font-size: 13.5px; margin: 0; }
+
+  /* ── PAGES ── */
+  .pages-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .page-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .page-header {
+    padding: 18px 22px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .page-icon-box {
+    width: 38px; height: 38px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .pi-red    { background: var(--red-dim);    border: 1px solid var(--red); }
+  .pi-blue   { background: var(--blue-dim);   border: 1px solid var(--blue); }
+  .pi-purple { background: var(--purple-dim); border: 1px solid var(--purple); }
+  .pi-gold   { background: var(--gold-dim);   border: 1px solid var(--gold); }
+
+  .page-header h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+  }
+  .page-header .pg-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+  }
+
+  .page-body { padding: 16px 22px 20px; }
+  .page-body p { font-size: 13.5px; margin-bottom: 14px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── DATA MODEL ── */
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .model-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .model-card .t-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .model-card .t-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .t-src     { color: var(--blue); }
+  .t-clean   { color: var(--green); }
+  .t-norm    { color: var(--purple); }
+  .t-movie   { color: var(--gold); }
+
+  /* ── MEASURES TABLE ── */
+  .mt {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 28px;
+    font-size: 13.5px;
+  }
+  .mt thead tr { border-bottom: 1px solid var(--border); }
+  .mt th {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface);
+  }
+  .mt td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .mt tbody tr:hover td { background: var(--surface2); }
+  .mn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--red);
+    white-space: nowrap;
+  }
+  .mg { font-size: 11px; color: var(--muted); }
+  .md { color: var(--muted); font-size: 13px; font-weight: 300; }
+
+  /* ── TRANSFORM STEPS ── */
+  .steps { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+  .step {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+  }
+  .step-n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--red);
+    padding-top: 2px; flex-shrink: 0;
+  }
+  .step h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .step p { font-size: 13px; margin: 0; }
+
+  /* ── CUSTOM VISUALS ── */
+  .vis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .vis-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .vis-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--red); flex-shrink: 0; margin-top: 5px;
+  }
+  .vis-card h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .vis-card p { font-size: 12.5px; margin: 0; }
+
+  /* ── TOOLS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .tool {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .tool h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+  .tool p { font-size: 13px; margin: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  footer .fl {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.08em;
+  }
+  footer .fl span { color: var(--red); }
+  footer p { font-size: 12px; color: var(--muted); margin: 0; font-weight: 300; }
+
+  @media (max-width: 720px) {
+    .platform-strip, .stats-bar, .pages-grid, .model-grid, .tools-grid, .vis-grid, .overview-grid { grid-template-columns: 1fr; }
+    .hero, section, .stats-bar, footer { padding-left: 20px; padding-right: 20px; }
+    .platform-strip { padding: 0 20px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="eyebrow">Personal Project · Power BI · Entertainment Analytics</p>
+  <h1>
+    OTT<br/>
+    <span class="line2">PLATFORM</span><br/>
+    <span class="line3">ANALYTICS DASHBOARD</span>
+  </h1>
+  <p class="hero-desc">
+    A comprehensive, self-initiated analytics project spanning four major OTT streaming platforms and the global movie box office — combining content library analysis, platform comparison, Bollywood vs Hollywood revenue intelligence, and audience rating insights across ~33,500 rows of data.
+  </p>
+  <div class="tag-row">
+    <span class="tag red">Power BI Desktop</span>
+    <span class="tag red">Power Query (M)</span>
+    <span class="tag blue">Netflix</span>
+    <span class="tag blue">Amazon Prime</span>
+    <span class="tag blue">Disney+ Hotstar</span>
+    <span class="tag blue">Apple TV+</span>
+    <span class="tag purple">Bollywood Analysis</span>
+    <span class="tag purple">Hollywood Analysis</span>
+    <span class="tag gold">10 Report Pages</span>
+    <span class="tag gold">5 Custom Visuals</span>
+    <span class="tag">Globe Map</span>
+    <span class="tag">Scrolling Ticker</span>
+  </div>
+</div>
+
+<!-- PLATFORM STRIP -->
+<div class="platform-strip">
+  <div class="platform-card">
+    <div class="p-icon">🎬</div>
+    <div class="p-name">Netflix</div>
+    <div class="p-rows netflix">5,332</div>
+    <div class="p-name">titles</div>
+  </div>
+  <div class="platform-card">
+    <div class="p-icon">📦</div>
+    <div class="p-name">Amazon Prime</div>
+    <div class="p-rows amazon">9,687</div>
+    <div class="p-name">titles</div>
+  </div>
+  <div class="platform-card">
+    <div class="p-icon">⭐</div>
+    <div class="p-name">Disney+ Hotstar</div>
+    <div class="p-rows hotstar">6,877</div>
+    <div class="p-name">titles</div>
+  </div>
+  <div class="platform-card">
+    <div class="p-icon">🍎</div>
+    <div class="p-name">Apple TV+</div>
+    <div class="p-rows apple">170</div>
+    <div class="p-name">titles</div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-box"><span class="s-num">~33.5K</span><span class="s-label">Total Rows Processed</span></div>
+  <div class="stat-box"><span class="s-num">6</span><span class="s-label">Source Data Files</span></div>
+  <div class="stat-box"><span class="s-num">10</span><span class="s-label">Dashboard Pages</span></div>
+  <div class="stat-box"><span class="s-num">16</span><span class="s-label">Data Model Tables</span></div>
+</div>
+
+<!-- OVERVIEW -->
+<section>
+  <p class="sec-label">01 · Overview</p>
+  <h2>What This Project Does</h2>
+  <p>
+    This is a personal deep-dive into the OTT content landscape. The dashboard covers two parallel analytical tracks: <strong>platform content libraries</strong> (what each streaming service offers, by genre, rating, type, and year) and <strong>global box office performance</strong> (Bollywood vs Hollywood revenue, budgets, scores, and geographic distribution).
+  </p>
+  <p>
+    Built entirely as a self-initiated project, it demonstrates end-to-end Power BI skills — from raw multi-source data ingestion and schema normalisation, through DAX calculations and relationship modelling, to a polished 10-page interactive dashboard with animated visuals and custom branding per platform.
+  </p>
+  <div class="overview-grid">
+    <div class="ov-card">
+      <h3>🎯 Motivation</h3>
+      <p>Personal interest in the streaming wars and box office economics — wanted to visualise how different platforms compare on content volume, genre diversity, and audience ratings.</p>
+    </div>
+    <div class="ov-card">
+      <h3>📦 Data Sources</h3>
+      <p>Six publicly available datasets: Netflix, Amazon Prime, Disney+ Hotstar, Apple TV+ catalogues, plus curated Bollywood and Hollywood box office records.</p>
+    </div>
+    <div class="ov-card">
+      <h3>📊 Output</h3>
+      <p>Ten branded report pages with platform-specific deep-dives, a cross-platform movies overview, separate Hollywood and Bollywood revenue analysis, and scrolling title tickers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD PAGES -->
+<section>
+  <p class="sec-label blue">02 · Dashboard Pages</p>
+  <h2>10-Page Report Architecture</h2>
+  <p>The report is split into three tiers: navigation/overview pages, per-platform deep-dives, and movie box-office analysis pages — each with its own colour scheme and branding.</p>
+
+  <div class="pages-grid">
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-gold">🏠</div>
+        <div><div class="pg-num">PAGES 01–03</div><h3>Navigation Layer</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Three entry pages — <strong>Home</strong>, <strong>Movies Hub</strong>, and <strong>OTT Hub</strong> — act as navigation centres with action buttons routing users to platform-specific and movie-analysis pages. Each features animated GIF platform logos and a dark cinematic layout.</p>
+        <div class="chips">
+          <span class="chip">Action Buttons / Nav</span>
+          <span class="chip">Platform Logos (GIF)</span>
+          <span class="chip">Cinematic Layout</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-red">🎬</div>
+        <div><div class="pg-num">PAGE 04</div><h3>Netflix</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Dedicated Netflix content analysis: content type split (Movies vs TV Shows), release year ribbon chart, rating distribution, country of origin map, active genre and rating slicers, and a live <strong>scrolling title ticker</strong> showing Netflix titles with release year and user ratings.</p>
+        <div class="chips">
+          <span class="chip">Ribbon Chart (Type × Year)</span>
+          <span class="chip">Geo Map (Countries)</span>
+          <span class="chip">Bar Chart (Ratings)</span>
+          <span class="chip">Gauge (Total Titles)</span>
+          <span class="chip">Scrolling Ticker ×2</span>
+          <span class="chip">KPI Cards ×4</span>
+          <span class="chip">Slicers ×4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-blue">📦</div>
+        <div><div class="pg-num">PAGE 05</div><h3>Amazon Prime</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Amazon Prime library breakdown: country distribution via filled map, content type donut, cumulative area chart of additions by year, rating distribution bar, genre ribbon chart, and dynamic KPI cards surfacing the current slicer-selected title, genre, rating, and director.</p>
+        <div class="chips">
+          <span class="chip">Filled Map (Countries)</span>
+          <span class="chip">Donut (Type Split)</span>
+          <span class="chip">Area Chart (Year trend)</span>
+          <span class="chip">Bar Chart (Ratings)</span>
+          <span class="chip">Ribbon Chart (Genres)</span>
+          <span class="chip">KPI Cards ×4</span>
+          <span class="chip">Slicer (Release Year)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-blue">⭐</div>
+        <div><div class="pg-num">PAGE 06</div><h3>Disney+ Hotstar</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Hotstar content library analysis featuring age rating breakdown, genre distribution across content types, year-wise content volume, Word Cloud of titles, a custom 3D BI visual for genre exploration, and a KPI gauge of total catalogued titles.</p>
+        <div class="chips">
+          <span class="chip">Clustered Bar (Age Rating × Type)</span>
+          <span class="chip">Column Chart (Year)</span>
+          <span class="chip">Clustered Column (Genre × Type)</span>
+          <span class="chip">Donut (Type Split)</span>
+          <span class="chip">Word Cloud (Titles)</span>
+          <span class="chip">3D BI Visual (Genre)</span>
+          <span class="chip">KPI Cards + Gauge</span>
+          <span class="chip">Slicers ×3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-purple">🍎</div>
+        <div><div class="pg-num">PAGE 07</div><h3>Apple TV+</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Apple TV+ catalogue analysis with IMDb score distribution, runtime analysis, release year trends, a Word Cloud of original titles, a gauge for total title count, and genre slicer filtering — despite Apple's smaller but high-quality library (~170 titles).</p>
+        <div class="chips">
+          <span class="chip">Column Chart (IMDb Score Dist.)</span>
+          <span class="chip">Line Chart (Runtime × Count)</span>
+          <span class="chip">Column Chart (Year trend)</span>
+          <span class="chip">Word Cloud (Titles)</span>
+          <span class="chip">Gauge (Total Titles)</span>
+          <span class="chip">KPI Cards ×2</span>
+          <span class="chip">Slicers ×2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-gold">🎥</div>
+        <div><div class="pg-num">PAGE 08</div><h3>Movies Overview</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Cross-platform movie database overview combining Bollywood and Hollywood data: total title and genre counts, total box office revenue card, score vs revenue scatter, language breakdown donut, country bar chart, and budget distribution — all filterable by title slicer.</p>
+        <div class="chips">
+          <span class="chip">KPI Cards (Titles, Genres, Revenue)</span>
+          <span class="chip">Column Chart (Score vs Revenue)</span>
+          <span class="chip">Donut (Language)</span>
+          <span class="chip">Bar Chart (Country)</span>
+          <span class="chip">Bar Chart (Budget)</span>
+          <span class="chip">Title Slicer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-blue">🎬</div>
+        <div><div class="pg-num">PAGE 09</div><h3>Hollywood</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Hollywood box office deep-dive: revenue vs budget by genre (grouped column chart), geographic production map, revenue by release date bar chart, genre and audience score KPI cards. Slicers for genre, title, language, and release date enable granular filtering across ~10,177 films.</p>
+        <div class="chips">
+          <span class="chip">Clustered Column (Revenue + Budget × Genre)</span>
+          <span class="chip">Filled Map (Production Country)</span>
+          <span class="chip">Bar Chart (Revenue by Date)</span>
+          <span class="chip">KPI Cards (Genre, Score)</span>
+          <span class="chip">Gauge (Total Films)</span>
+          <span class="chip">Slicers ×4</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-card">
+      <div class="page-header">
+        <div class="page-icon-box pi-gold">🎭</div>
+        <div><div class="pg-num">PAGE 10</div><h3>Bollywood</h3></div>
+      </div>
+      <div class="page-body">
+        <p>Bollywood box office analysis: Revenue vs Budget by title (bar chart), production country filled map, ribbon chart of films by audience score over time, genre KPI card, and a gauge for total films. Year slicer spans multi-decade Bollywood data from the ~1,321 film dataset.</p>
+        <div class="chips">
+          <span class="chip">Bar Chart (Revenue vs Budget)</span>
+          <span class="chip">Filled Map (Country)</span>
+          <span class="chip">Ribbon Chart (Score trend)</span>
+          <span class="chip">KPI Cards (Genre, Score)</span>
+          <span class="chip">Gauge (Total Films)</span>
+          <span class="chip">Slicers ×3</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATA MODEL -->
+<section>
+  <p class="sec-label purple">03 · Data Model</p>
+  <h2>16-Table Model — Two Analytical Domains</h2>
+  <p>
+    The data model organises into two parallel tracks. The <strong>OTT track</strong> holds raw and cleaned tables per platform, with Netflix normalised into five sub-tables (Cast, Director, Country, Genre, Main) to handle its multi-value columns. The <strong>Movies track</strong> keeps Bollywood and Hollywood as separate fact tables joined through a shared <code>Final_Imbd</code> combined view.
+  </p>
+
+  <div class="model-grid">
+    <div class="model-card"><div class="t-name">amazon_prime_titles</div><div class="t-type t-src">Raw Source</div></div>
+    <div class="model-card"><div class="t-name">hotstar</div><div class="t-type t-src">Raw Source</div></div>
+    <div class="model-card"><div class="t-name">Table_cleaned_amazon_prime_titles</div><div class="t-type t-clean">Cleaned (PQ)</div></div>
+    <div class="model-card"><div class="t-name">Table_cleaned_hotstar</div><div class="t-type t-clean">Cleaned (PQ)</div></div>
+    <div class="model-card"><div class="t-name">Table_cleaned_apple</div><div class="t-type t-clean">Cleaned (PQ)</div></div>
+    <div class="model-card"><div class="t-name">Table_cleaned_netflix_titles_2</div><div class="t-type t-clean">Cleaned (PQ)</div></div>
+    <div class="model-card"><div class="t-name">Netflix Main</div><div class="t-type t-norm">Normalised</div></div>
+    <div class="model-card"><div class="t-name">Netflix Genre</div><div class="t-type t-norm">Normalised</div></div>
+    <div class="model-card"><div class="t-name">Netflix Cast</div><div class="t-type t-norm">Normalised</div></div>
+    <div class="model-card"><div class="t-name">Netflix Director</div><div class="t-type t-norm">Normalised</div></div>
+    <div class="model-card"><div class="t-name">Netflix Country</div><div class="t-type t-norm">Normalised</div></div>
+    <div class="model-card"><div class="t-name">Netflixnew</div><div class="t-type t-norm">Working Table</div></div>
+    <div class="model-card"><div class="t-name">Final Bollywood</div><div class="t-type t-movie">Movie Fact</div></div>
+    <div class="model-card"><div class="t-name">Bollywood Genre</div><div class="t-type t-movie">Movie Dim</div></div>
+    <div class="model-card"><div class="t-name">Final Hollywood</div><div class="t-type t-movie">Movie Fact</div></div>
+    <div class="model-card"><div class="t-name">Final_Imbd</div><div class="t-type t-movie">Combined View</div></div>
+  </div>
+</section>
+
+<!-- KEY METRICS -->
+<section>
+  <p class="sec-label gold">04 · Key Metrics & Calculations</p>
+  <h2>Measures & Calculated Fields</h2>
+  <p>Metrics are defined as implicit and explicit measures across the data model. The movies domain drives the most complex financial calculations while the OTT domain focuses on count-based content metrics.</p>
+
+  <table class="mt">
+    <thead>
+      <tr>
+        <th>Measure / Field</th>
+        <th>Domain</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="mn">Count of title (TV)</span></td>
+        <td><span class="mg">Hotstar</span></td>
+        <td class="md">Count of Hotstar titles filtered to TV Show type — displayed as a KPI card.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Count of title (Movie)</span></td>
+        <td><span class="mg">Hotstar</span></td>
+        <td class="md">Count of Hotstar titles filtered to Movie type — complementary KPI card.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Total Titles (Gauge)</span></td>
+        <td><span class="mg">All Platforms</span></td>
+        <td class="md">COUNTROWS measure per platform displayed on gauge visual to show library size at a glance.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Count of Title (Movies DB)</span></td>
+        <td><span class="mg">Movies Overview</span></td>
+        <td class="md">Total film count in the combined Bollywood + Hollywood dataset.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Count of Genre</span></td>
+        <td><span class="mg">Movies Overview</span></td>
+        <td class="md">Distinct genre count across the combined movies table.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Sum of Revenue ($)</span></td>
+        <td><span class="mg">Hollywood / Bollywood</span></td>
+        <td class="md">Total box office revenue — used in bar charts (by title) and the overview KPI card.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Sum of Budget ($)</span></td>
+        <td><span class="mg">Hollywood / Bollywood</span></td>
+        <td class="md">Total production budget — paired with revenue in grouped column and bar charts.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Sum of Score</span></td>
+        <td><span class="mg">Hollywood / Bollywood</span></td>
+        <td class="md">Aggregate audience score — used as a KPI card and in ribbon chart ordering for Bollywood.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">User_Rating (Netflix)</span></td>
+        <td><span class="mg">Netflix</span></td>
+        <td class="md">Cleaned user rating field shown in the scrolling ticker alongside title and release year.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">IMDb Score (Apple)</span></td>
+        <td><span class="mg">Apple TV+</span></td>
+        <td class="md">IMDb score distribution across Apple TV+ titles — drives the column chart histogram.</td>
+      </tr>
+      <tr>
+        <td><span class="mn">Runtime (Apple)</span></td>
+        <td><span class="mg">Apple TV+</span></td>
+        <td class="md">Runtime in minutes — used in a line chart to show runtime distribution across Apple titles.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- POWER QUERY -->
+<section>
+  <p class="sec-label">05 · Data Transformation</p>
+  <h2>Power Query ETL Pipeline</h2>
+  <p>Each of the six source files required different transformation work before the data model could be built. Key steps applied across the project:</p>
+
+  <div class="steps">
+    <div class="step">
+      <span class="step-n">01</span>
+      <div>
+        <h4>Schema Standardisation</h4>
+        <p>Column names and data types were standardised across all six files — enforcing consistent date formats (Netflix used "24-09-2021" vs Amazon's "March 30, 2021"), numeric types for revenue/budget/runtime, and string types for categorical fields.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">02</span>
+      <div>
+        <h4>Netflix Schema Normalisation (Multi-value Columns)</h4>
+        <p>Netflix's <code>cast</code>, <code>director</code>, <code>country</code>, and <code>listed_in</code> (genres) columns each contain comma-separated multiple values. These were split and expanded into separate normalised tables (Netflix Cast, Director, Country, Genre) linked back to Netflix Main via title/show_id.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">03</span>
+      <div>
+        <h4>Bollywood Genre Normalisation</h4>
+        <p>Similar to Netflix, the Bollywood genre column was split into a separate <code>Bollywood Genre</code> dimension table to allow genre-level slicer filtering on the Bollywood page.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">04</span>
+      <div>
+        <h4>Date Field Extraction (Netflix)</h4>
+        <p>Extracted year, month, and day components from Netflix's <code>date_added</code> field to build the Date Hierarchy used for year-based slicing and the ribbon chart's time axis.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">05</span>
+      <div>
+        <h4>Null & Missing Value Handling</h4>
+        <p>Handled missing director, cast, country, and rating values across all platform files — replacing nulls with placeholder values where required for KPI card display logic, and filtering them out where required for clean chart rendering.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">06</span>
+      <div>
+        <h4>Revenue / Budget Cleaning (Movies)</h4>
+        <p>Hollywood and Bollywood financial columns required type conversion from string to whole number, removal of currency symbols, and handling of rows with zero or null budget values that would distort budget distribution visuals.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">07</span>
+      <div>
+        <h4>Combined Movies View (Final_Imbd)</h4>
+        <p>Appended the cleaned Bollywood and Hollywood tables into a single <code>Final_Imbd</code> table used exclusively on the Movies Overview page — enabling cross-cinema revenue, genre, language, and country analysis in a single report page.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-n">08</span>
+      <div>
+        <h4>Apple TV+ Data Enrichment</h4>
+        <p>Apple TV+'s dataset came with IMDb scores, TMDb popularity, and runtime already included — these were cleaned and retained as additional analytical dimensions not available in the other platform datasets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM VISUALS -->
+<section>
+  <p class="sec-label blue">06 · Custom Visuals</p>
+  <h2>5 AppSource Custom Visuals</h2>
+
+  <div class="vis-grid">
+    <div class="vis-card">
+      <div class="vis-dot"></div>
+      <div>
+        <h4>Globe Map</h4>
+        <p>3D rotating globe for geographic visualisation — used to plot content production countries across platforms in an immersive, cinematic way.</p>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-dot" style="background:var(--purple)"></div>
+      <div>
+        <h4>3D BI (INFORMAXYZ)</h4>
+        <p>3D bubble/bar chart visual — used on the Hotstar page to represent genre distribution in three-dimensional space, adding visual depth to the exploration.</p>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-dot" style="background:var(--blue)"></div>
+      <div>
+        <h4>Scrolling Text (Scroller)</h4>
+        <p>Live scrolling ticker — used on the Netflix page to display a continuously scrolling list of titles with release year and user ratings, mimicking a real content feed.</p>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-dot" style="background:var(--gold)"></div>
+      <div>
+        <h4>Word Cloud 2.0</h4>
+        <p>Title word cloud — deployed on both Hotstar and Apple TV+ pages to provide an at-a-glance feel for the content catalogue by surfacing frequently occurring title words.</p>
+      </div>
+    </div>
+    <div class="vis-card">
+      <div class="vis-dot" style="background:var(--green)"></div>
+      <div>
+        <h4>Lollipop / PL Chart</h4>
+        <p>Custom lollipop chart used on the Hotstar page for a cleaner alternative to a standard bar chart when comparing counts across genre or age rating categories.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section>
+  <p class="sec-label gold">07 · Tools & Methods</p>
+  <h2>Technical Stack</h2>
+  <div class="tools-grid">
+    <div class="tool">
+      <h4>Power BI Desktop</h4>
+      <p>Primary tool for all 10 report pages — authoring, visual layout, branding, and interactive filtering with action button navigation.</p>
+    </div>
+    <div class="tool">
+      <h4>Power Query (M Language)</h4>
+      <p>Full ETL pipeline: schema normalisation, multi-value column splitting, date extraction, null handling, append queries.</p>
+    </div>
+    <div class="tool">
+      <h4>DAX</h4>
+      <p>Count, sum, and filter-based calculated measures for KPI cards, gauges, and box office financial aggregations.</p>
+    </div>
+    <div class="tool">
+      <h4>Schema Normalisation</h4>
+      <p>Netflix multi-value columns split into five linked tables — practical application of relational design for handling denormalised source data.</p>
+    </div>
+    <div class="tool">
+      <h4>AppSource Custom Visuals</h4>
+      <p>Five custom visuals integrated including Globe Map, 3D BI, Scrolling Ticker, Word Cloud, and Lollipop chart — extending Power BI's default visual library.</p>
+    </div>
+    <div class="tool">
+      <h4>Cross-domain Data Modelling</h4>
+      <p>Two independent analytical domains (OTT platforms + Movie box office) managed in a single data model — with append queries creating unified cross-domain views.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">OTT <span>Analytics</span></div>
+  <p>Personal Project · Power BI · Entertainment Data Analytics · 2023</p>
+</footer>
+
+</body>
+</html>
